@@ -3,6 +3,9 @@ package pancakeSort;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * LeetCode 煎饼排序 pancakeSort
+ */
 class Solution {
     public List<Integer> pancakeSort(int[] arr) {
         ArrayList<Integer> result = new ArrayList<>();
