@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class Solution {
     /**
      * 2055. 蜡烛之间的盘子
@@ -75,10 +79,9 @@ public class Solution {
     /**
      * 798. 得分最高的最小轮调
      * 给你一个数组nums，我们可以将它按一个非负整数 k 进行轮调，这样可以使数组变为[nums[k], nums[k + 1], ... nums[nums.length - 1], nums[0], nums[1], ..., nums[k-1]]的形式。此后，任何值小于或等于其索引的项都可以记作一分。
-     *
+     * <p>
      * 例如，数组为nums = [2,4,1,3,0]，我们按k = 2进行轮调后，它将变成[1,3,0,2,4]。这将记为 3 分，因为 1 > 0 [不计分]、3 > 1 [不计分]、0 <= 2 [计 1 分]、2 <= 3 [计 1 分]，4 <= 4 [计 1 分]。
      * 在所有可能的轮调中，返回我们所能得到的最高分数对应的轮调下标 k 。如果有多个答案，返回满足条件的最小的下标 k 。
-     *
      *
      * @param nums 给定数组 nums
      * @return 下标k
@@ -109,6 +112,45 @@ public class Solution {
         }
         return bestIndex;
     }
+
+
+    /**
+     * 599. 两个列表的最小索引总和
+     *
+     * @param list1 列表1
+     * @param list2 列表2
+     * @return 最小索引和
+     */
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Integer> result = new HashMap<>();
+        List<String> s = new ArrayList<>();
+
+        for (int i = 0; i < list1.length; i++) {
+            map.put(list1[i], i);
+        }
+        for (int i = 0; i < list2.length; i++) {
+            if (map.containsKey(list2[i])) {
+                result.put(list2[i], map.get(list2[i]) + i);
+            }
+        }
+        int min = Integer.MAX_VALUE;
+        for (String key : result.keySet()) {
+            int cur = result.get(key);
+            if (cur < min) {
+                min = cur;
+            }
+        }
+        for (String key : result.keySet()) {
+            int cur = result.get(key);
+            if (cur == min) {
+                s.add(key);
+            }
+        }
+        return s.toArray(new String[s.size()]);
+    }
+
+
     public static void main(String[] args) {
 
     }
