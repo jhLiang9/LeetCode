@@ -1,6 +1,8 @@
 package CodingInterview;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Tree {
@@ -76,6 +78,52 @@ public class Tree {
             }
             cur = cur.right;
         }
+    }
+
+    /**
+     * 103. 二叉树的锯齿形层序遍历
+     * 给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     *
+     * @param root 二叉树的根节点 root
+     * @return 节点值的 锯齿形层序遍历
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return new ArrayList<>();
+        stack.push(root);
+        boolean flag = true;
+
+        while (!stack.isEmpty()) {
+            Deque<TreeNode> tempStack = new ArrayDeque<>();
+            List<Integer> temp = new ArrayList<>();
+            while (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                temp.add(node.val);
+                if (flag) {
+                    if (node.left != null) {
+                        tempStack.push(node.left);
+                    }
+                    if (node.right != null) {
+                        tempStack.push(node.right);
+                    }
+                } else {
+                    if (node.right != null) {
+                        tempStack.push(node.right);
+                    }
+                    if (node.left != null) {
+                        tempStack.push(node.left);
+                    }
+                }
+
+            }
+            flag = !flag;
+            result.add(temp);
+            stack = tempStack;
+        }
+
+        return result;
+
     }
 
 }
