@@ -128,6 +128,37 @@ public class Tree {
 
     }
 
+
+    /**
+     * 剑指 Offer II 052. 展平二叉搜索树
+     * https://leetcode-cn.com/problems/NYBBNL/
+     * <p>
+     * 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，
+     * 并且每个节点没有左子节点，只有一个右子节点。
+     *
+     * @param root 根节点
+     * @return 根节点
+     */
+    public TreeNode increasingBST(TreeNode root) {
+        if (root == null) return null;
+        TreeNode head = new TreeNode(-1);
+        List<TreeNode> list = new ArrayList<>();
+        inOrder(root, list);
+        for (int i = 0; i < list.size() - 1; i++) {
+            list.get(i).right = list.get(i + 1);
+        }
+        return list.get(0);
+    }
+
+    public void inOrder(TreeNode node, List<TreeNode> list) {
+        if (node == null) return;
+        inOrder(node.left, list);
+        list.add(node);
+        inOrder(node.right, list);
+        node.right = null;
+        node.left = null;
+    }
+
 }
 
 /**
