@@ -95,11 +95,13 @@ public class Tree {
         boolean flag = true;
 
         while (!stack.isEmpty()) {
+            //使用一个临时栈保存,该层结点pop出的左右结点
             Deque<TreeNode> tempStack = new ArrayDeque<>();
             List<Integer> temp = new ArrayList<>();
             while (!stack.isEmpty()) {
                 TreeNode node = stack.pop();
                 temp.add(node.val);
+                // 通过flag做判断, 即分辨从左到右还是从右到左
                 if (flag) {
                     if (node.left != null) {
                         tempStack.push(node.left);
