@@ -1,4 +1,4 @@
-package CodingInterview;
+package CodingInterview.Tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -158,6 +158,38 @@ public class Tree {
         node.right = null;
         node.left = null;
     }
+
+    //671
+    int ans;
+    int rootValue;
+
+    /**
+     * 671. 二叉树中第二小的节点
+     *
+     * @param root 根节点
+     * @return 二叉树中第二小的节点
+     */
+    public int findSecondMinimumValue(TreeNode root) {
+        ans = -1;
+        rootValue = root.val;
+        dfsFindSecondMinimumValue(root);
+        return ans;
+    }
+
+    public void dfsFindSecondMinimumValue(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        if (ans != -1 && node.val >= ans) {
+            return;
+        }
+        if (node.val > rootValue) {
+            ans = node.val;
+        }
+        dfsFindSecondMinimumValue(node.left);
+        dfsFindSecondMinimumValue(node.right);
+    }
+
 
 }
 
