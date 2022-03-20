@@ -190,6 +190,32 @@ public class Tree {
         dfsFindSecondMinimumValue(node.right);
     }
 
+    /**
+     * 606. 根据二叉树创建字符串
+     */
+
+    public String tree2str(TreeNode root) {
+        String result = recurTree2str(root);
+        return result.substring(1, result.length()-1);
+    }
+    public String recurTree2str(TreeNode node) {
+        if(node.left == null && node.right == null) {
+            return "("+node.val+")";
+        }
+        String res="("+node.val;
+        if(node.left!=null) {
+            res+= recurTree2str(node.left);
+        } else {
+            res+="()";
+        }
+        if(node.right!=null) {
+            res+= recurTree2str(node.right)+")";
+        } else {
+            res+= ")";
+        }
+        return res;
+    }
+
 
 }
 
