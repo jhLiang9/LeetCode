@@ -196,60 +196,59 @@ public class Tree {
 
     public String tree2str(TreeNode root) {
         String result = recurTree2str(root);
-        return result.substring(1, result.length()-1);
+        return result.substring(1, result.length() - 1);
     }
+
     public String recurTree2str(TreeNode node) {
-        if(node.left == null && node.right == null) {
-            return "("+node.val+")";
+        if (node.left == null && node.right == null) {
+            return "(" + node.val + ")";
         }
-        String res="("+node.val;
-        if(node.left!=null) {
-            res+= recurTree2str(node.left);
+        String res = "(" + node.val;
+        if (node.left != null) {
+            res += recurTree2str(node.left);
         } else {
-            res+="()";
+            res += "()";
         }
-        if(node.right!=null) {
-            res+= recurTree2str(node.right)+")";
+        if (node.right != null) {
+            res += recurTree2str(node.right) + ")";
         } else {
-            res+= ")";
+            res += ")";
         }
         return res;
     }
 
+    /**
+     * 653. 两数之和 IV - 输入 BST
+     * EASY
+     *
+     * @param root 根节点
+     * @param k    目标
+     * @return 是否包含该值
+     */
+    public boolean findTarget(TreeNode root, int k) {
+        ArrayList<Integer> list = new ArrayList<>();
+        inorderFindTarget(root, list);
+        int left = 0;
+        int right = list.size() - 1;
+        while (left < right) {
+            if (list.get(left) + list.get(right) > k) {
+                right--;
+            } else if (list.get(left) + list.get(right) == k) {
+                return true;
+            } else {
+                left++;
+            }
+        }
+        return false;
+    }
+
+    public void inorderFindTarget(TreeNode node, List<Integer> list) {
+        if (node == null) return;
+        inorderFindTarget(node.left, list);
+        list.add(node.val);
+        inorderFindTarget(node.right, list);
+    }
 
 }
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
- */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {
-    }
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
