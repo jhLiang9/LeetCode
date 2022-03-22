@@ -1,12 +1,14 @@
-package pancakeSort;
+package Sort;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * LeetCode 煎饼排序 pancakeSort
- */
-class Solution {
+public class Sort {
+    public int[] quickSort(int[] nums) {
+        //todo
+        return nums;
+    }
+
     public List<Integer> pancakeSort(int[] arr) {
         ArrayList<Integer> result = new ArrayList<>();
         int size = arr.length;
@@ -33,9 +35,5 @@ class Solution {
         }
     }
 
-    public static void main(String[] args) {
-        Solution s = new Solution();
-        int[] test = {3, 2, 4, 1};
-        s.pancakeSort(test);
-    }
+
 }
