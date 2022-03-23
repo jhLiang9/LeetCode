@@ -1,5 +1,8 @@
 package design;
 
+/**
+ * 字典树
+ */
 public class Trie {
     Trie[] children;
     boolean isEnd;

@@ -249,6 +249,47 @@ public class Tree {
         inorderFindTarget(node.right, list);
     }
 
-}
+    /**
+     * 440. 字典序的第K小数字
+     * 给定整数 n 和 k，返回  [1, n] 中字典序第 k 小的数字。
+     * 思路: 字典树
+     *
+     * @param n 整数n
+     * @param k 整数k
+     * @return [1, n] 中字典序第 k 小的数字
+     */
 
+    public int findKthNumber(int n, int k) {
+        int curr = 1;
+        k--;
+        while (k > 0) {
+            //curr当前节点下子节点数量
+            int steps = getSteps(curr, n);
+            //如果子节点数量<=k，那k直接减去，说明k并不在这个区间内
+            if (steps <= k) {
+                k -= steps;
+                curr++;
+            } else {
+                //节点数量比k多,一层一层深入计算节点数量;
+                curr = curr * 10;
+                k--;
+            }
+        }
+        return curr;
+    }
+
+    //找到当前 节点 下的子节点数量
+    public int getSteps(int curr, long n) {
+        int step = 0;
+        int left = curr, right = curr;
+        while (left <= n) {
+            step += Math.min(right, n) - left + 1;
+            left = left * 10;
+            right = right * 10 + 9;
+        }
+        return step;
+    }
+
+
+}
 
