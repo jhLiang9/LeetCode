@@ -30,12 +30,47 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 150. 逆波兰表达式求值
+     * 简单题
+     * @param tokens
+     * @return
+     */
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> numStack = new ArrayDeque<>();
+        for (String s : tokens) {
+            char c = s.charAt(s.length()-1);
+            if (Character.isDigit(c)) {
+                numStack.push(Integer.parseInt(s));
+            } else {
+                int a = numStack.pop();
+                int b = numStack.pop();
+                switch (c) {
+                    case '+':
+                        numStack.push(a + b);
+                        break;
+                    case '-':
+                        numStack.push(b - a);
+                        break;
+                    case '*':
+                        numStack.push(b * a);
+                        break;
+                    case '/':
+                        numStack.push(b / a);
+                        break;
+                }
+            }
+        }
+        return numStack.pop();
+    }
+
+
     public static void main(String[] args) {
         Solution solution = new Solution();
-        for (int result : solution.dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73})) {
-            System.out.println(result);
-        }
-
+//        for (int result : solution.dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73})) {
+//            System.out.println(result);
+//        }
+        solution.evalRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"});
     }
 
 }
