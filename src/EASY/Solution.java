@@ -1,5 +1,8 @@
 package EASY;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class Solution {
     /**
      * 661. 图片平滑器
@@ -68,6 +71,41 @@ public class Solution {
             ans += n;
         }
         return ans;
+    }
+
+    /**
+     * 682. 棒球比赛
+     * @param ops 操作
+     * @return 最终得分
+     */
+    public int calPoints(String[] ops) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String op : ops) {
+            char c = op.charAt(op.length() - 1);
+            if (Character.isDigit(c)) {
+                stack.push(Integer.parseInt(op));
+            } else {
+                switch (op) {
+                    case "C":
+                        stack.pop();
+                        break;
+                    case "D":
+                        stack.push(stack.peek() * 2);
+                        break;
+                    case "+":
+                        int top = stack.pop();
+                        int pushIn = top + stack.peek();
+                        stack.push(top);
+                        stack.push(pushIn);
+                        break;
+                }
+            }
+        }
+        int res = 0;
+        for (int num : stack) {
+            res += num;
+        }
+        return res;
     }
 
 }
