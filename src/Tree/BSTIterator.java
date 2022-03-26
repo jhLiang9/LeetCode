@@ -1,4 +1,6 @@
-package CodingInterview.Tree;
+package Tree;
+
+import DataStructures.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;

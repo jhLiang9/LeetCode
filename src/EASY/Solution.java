@@ -1,6 +1,6 @@
 package EASY;
 
-import CodingInterview.Tree.TreeNode;
+import DataStructures.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
