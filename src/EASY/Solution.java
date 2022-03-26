@@ -1,7 +1,11 @@
 package EASY;
 
+import CodingInterview.Tree.TreeNode;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Solution {
     /**
@@ -75,6 +79,7 @@ public class Solution {
 
     /**
      * 682. 棒球比赛
+     *
      * @param ops 操作
      * @return 最终得分
      */
@@ -106,6 +111,28 @@ public class Solution {
             res += num;
         }
         return res;
+    }
+
+    /**
+     * LCP 44. 开幕式焰火
+     * @param root 根节点
+     * @return 树中val的数值个数
+     */
+    public int numColor(TreeNode root) {
+        Set<Integer> set = new HashSet<>();
+        inorder(set, root);
+        return set.size();
+    }
+
+
+    public void inorder(Set<Integer> set, TreeNode node) {
+        if (node.left != null) {
+            inorder(set, node.left);
+        }
+        if (node.right != null) {
+            inorder(set, node.right);
+        }
+        set.add(node.val);
     }
 
 }
