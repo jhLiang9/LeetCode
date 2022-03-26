@@ -1,9 +1,6 @@
 package BackTrack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
     /**
@@ -98,10 +95,48 @@ public class Solution {
         backtrack1863(children, nums, cur + 1, end, output);
     }
 
+    /**
+     * 17. 电话号码的字母组合
+     *
+     * @param digits
+     * @return
+     */
+    public List<String> letterCombinations(String digits) {
+        if (Objects.equals(digits, "")) return new ArrayList<>();
+        HashMap<String, String> map = new HashMap<>();
+
+        String[] numSet = new String[]{"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wyz"};
+        for (int i = 2; i <= 9; i++) {
+            map.put(String.valueOf(i), numSet[i - 2]);
+        }
+        List<String> query = new ArrayList<>();
+        for (int i = 0; i < digits.length(); i++) {
+            String s = digits.substring(i, i + 1);
+            query.add(map.get(s));
+        }
+        List<String> res = new ArrayList<>();
+        backtrack17(res, query, 0, new StringBuilder());
+        return res;
+    }
+
+    public void backtrack17(List<String> res, List<String> query, int index, StringBuilder sb) {
+        if (index == query.size()) {
+            res.add(sb.toString());
+            return;
+        }
+        String options = query.get(index);
+        for (int i = 0; i < options.length(); i++) {
+            sb.append(options.charAt(i));
+            backtrack17(res, query, index + 1, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+    }
+
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.subsetXORSum(new int[]{1, 3});
+        s.letterCombinations("23");
 
     }
 }
