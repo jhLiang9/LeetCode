@@ -145,19 +145,42 @@ public class Solution {
     }
 
     public void backtrack0807(List<String> res, int cur, String S, StringBuilder sb) {
-        if (cur == S.length() - 1) {
+        if (cur == S.length()) {
             res.add(sb.toString());
             return;
         }
-        for (int i = cur; i < S.length(); i++) {
+        for (int i = 0; i < S.length(); i++) {
             if (sb.toString().contains(S.charAt(i) + "")) continue;
             sb.append(S.charAt(i));
             backtrack0807(res, cur + 1, S, sb);
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
         }
     }
 
+    /**
+     * 78. 子集  给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+     * <p>
+     * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
+     *
+     * @param nums 整数数组 nums
+     * @return 解集
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        backtrack78(nums, 0, res, temp);
+        return res;
+    }
 
+    public void backtrack78(int[] nums, int index, List<List<Integer>> res, List<Integer> temp) {
+        if (index == nums.length) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        temp.add(nums[index]);
+        backtrack78(nums, index + 1, res, temp);
+        temp.remove(temp.size() - 1);
+    }
 
 
     public static void main(String[] args) {
