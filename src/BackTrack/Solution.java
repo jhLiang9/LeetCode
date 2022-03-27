@@ -31,7 +31,6 @@ public class Solution {
             backtrack22(res, cur, open, close + 1, max);
             cur.deleteCharAt(cur.length() - 1);
         }
-
     }
 
 
@@ -98,8 +97,8 @@ public class Solution {
     /**
      * 17. 电话号码的字母组合
      *
-     * @param digits
-     * @return
+     * @param digits 电话号码组合
+     * @return 总共的组合
      */
     public List<String> letterCombinations(String digits) {
         if (Objects.equals(digits, "")) return new ArrayList<>();
@@ -132,6 +131,33 @@ public class Solution {
         }
 
     }
+
+    /**
+     * 面试题 08.07. 无重复字符串的排列组合
+     *
+     * @param S 字符串
+     * @return 字符串的排列组合
+     */
+    public String[] permutation(String S) {
+        List<String> res = new ArrayList<>();
+        backtrack0807(res, 0, S, new StringBuilder());
+        return res.toArray(new String[0]);
+    }
+
+    public void backtrack0807(List<String> res, int cur, String S, StringBuilder sb) {
+        if (cur == S.length() - 1) {
+            res.add(sb.toString());
+            return;
+        }
+        for (int i = cur; i < S.length(); i++) {
+            if (sb.toString().contains(S.charAt(i) + "")) continue;
+            sb.append(S.charAt(i));
+            backtrack0807(res, cur + 1, S, sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+
+
 
 
     public static void main(String[] args) {
