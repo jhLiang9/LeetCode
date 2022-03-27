@@ -53,7 +53,7 @@ public class Solution {
 
     public void backtrack46(List<List<Integer>> res, List<Integer> cur, int[] nums, int index) {
         if (index == nums.length) {
-            res.add(cur);
+            res.add(new ArrayList<>(cur));
             return;
         }
         for (int i = index; i < nums.length; i++) {
