@@ -193,11 +193,11 @@ public class Solution {
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
-        backtrack(res, target, candidates, 0, new ArrayList<>());
+        backtrack39(res, target, candidates, 0, new ArrayList<>());
         return res;
     }
 
-    public void backtrack(List<List<Integer>> res, int target, int[] candidates, int index, List<Integer> output) {
+    public void backtrack39(List<List<Integer>> res, int target, int[] candidates, int index, List<Integer> output) {
         if (index == candidates.length) return;
         if (target == 0) {
             res.add(new ArrayList<>(output));
@@ -206,18 +206,47 @@ public class Solution {
             return;
         }
         //不选择当前数字
-        backtrack(res, target, candidates, index + 1, output);
+        backtrack39(res, target, candidates, index + 1, output);
 
         //选择当前数字
         output.add(candidates[index]);
         //后面可能再选,所以index不变
-        backtrack(res, target - candidates[index], candidates, index, output);
+        backtrack39(res, target - candidates[index], candidates, index, output);
         output.remove(output.size() - 1);
+    }
 
+
+    /**
+     * 797. 所有可能的路径
+     *
+     * @param graph 图
+     * @return 请你找出所有从节点 0 到节点 n-1 的路径并输出（不要求按特定顺序）
+     */
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> output = new ArrayList<>();
+        output.add(0);
+        dfs797(res, graph, 0, output);
+        return res;
+    }
+
+    public void dfs797(List<List<Integer>> res, int[][] graph, int index, List<Integer> output) {
+        if (index == graph.length-1) {
+            res.add(new ArrayList<>(output));
+            return;
+        } else if(index >= graph.length){
+            return;
+        }
+
+        for (int j = 0; j < graph[index].length; j++) {
+            output.add(graph[index][j]);
+            dfs797(res, graph, graph[index][j], output);
+            output.remove(output.size() - 1);
+        }
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.letterCombinations("23");
+        s.allPathsSourceTarget(new int[][]{ {4,3,1},{3,2,4},{3},{4},{}});
     }
 }
