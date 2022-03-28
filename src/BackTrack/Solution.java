@@ -182,10 +182,42 @@ public class Solution {
         temp.remove(temp.size() - 1);
     }
 
+    /**
+     * 39. 组合总和
+     * 给你一个 无重复元素 的整数数组candidates 和一个目标整数target，找出candidates中可以使数字和为目标数target 的 所有不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+     *
+     * @param candidates 无重复元素 的整数数组candidates
+     * @param target     一个目标整数target
+     * @return 找出candidates中可以使数字和为目标数target 的 所有不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合
+     */
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(res, target, candidates, 0, new ArrayList<>());
+        return res;
+    }
+
+    public void backtrack(List<List<Integer>> res, int target, int[] candidates, int index, List<Integer> output) {
+        if (index == candidates.length) return;
+        if (target == 0) {
+            res.add(new ArrayList<>(output));
+            return;
+        } else if (output.size() >= 150 || target < 0) {
+            return;
+        }
+        //不选择当前数字
+        backtrack(res, target, candidates, index + 1, output);
+
+        //选择当前数字
+        output.add(candidates[index]);
+        //后面可能再选,所以index不变
+        backtrack(res, target - candidates[index], candidates, index, output);
+        output.remove(output.size() - 1);
+
+    }
 
     public static void main(String[] args) {
         Solution s = new Solution();
         s.letterCombinations("23");
-
     }
 }
