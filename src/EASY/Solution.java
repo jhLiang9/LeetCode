@@ -115,6 +115,7 @@ public class Solution {
 
     /**
      * LCP 44. 开幕式焰火
+     *
      * @param root 根节点
      * @return 树中val的数值个数
      */
@@ -134,5 +135,16 @@ public class Solution {
         }
         set.add(node.val);
     }
+
+    /**
+     * 693. 交替位二进制数
+     * @param n 一个正整数
+     * @return 给定一个正整数，检查它的二进制表示是否总是 0、1 交替出现：换句话说，就是二进制表示中相邻两位的数字永不相同。
+     *
+     */
+    public boolean hasAlternatingBits(int n) {
+        return (n >> 1 & n) == 0 && (n | n >> 2) == n;
+    }
+
 
 }
