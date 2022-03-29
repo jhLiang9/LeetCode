@@ -1,7 +1,6 @@
 package Search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Solution {
     /**
@@ -110,5 +109,66 @@ public class Solution {
             max = Math.max(max, j - i + 1);
         }
         return max;
+    }
+
+
+    /**
+     * 1876. 长度为三且各字符不同的子字符串
+     *
+     * @param s 字符串
+     * @return 长度为三且各字符不同的子字符串的数量
+     */
+    public int countGoodSubstrings(String s) {
+        int res = 0;
+        for (int i = 0, n = 3; i < s.length() - 2; i++, n = 3) {
+            HashSet<Character> set = new HashSet<>();
+            while (n > 0) {
+                set.add(s.charAt(i + n-- - 1));
+            }
+            res += set.size() / 3;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.countGoodSubstrings("abcd"));
+    }
+
+
+    /**
+     * 438. 找到字符串中所有字母异位词
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+        int sLen = s.length(), pLen = p.length();
+
+        if (sLen < pLen) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        int[] sCount = new int[26];
+        int[] pCount = new int[26];
+        for (int i = 0; i < pLen; ++i) {
+            ++sCount[s.charAt(i) - 'a'];
+            ++pCount[p.charAt(i) - 'a'];
+        }
+
+        if (Arrays.equals(sCount, pCount)) {
+            ans.add(0);
+        }
+        for (int i = 0; i < sLen - pLen; ++i) {
+            --sCount[s.charAt(i) - 'a'];
+            ++sCount[s.charAt(i + pLen) - 'a'];
+
+            if (Arrays.equals(sCount, pCount)) {
+                ans.add(i + 1);
+            }
+        }
+        return ans;
     }
 }
