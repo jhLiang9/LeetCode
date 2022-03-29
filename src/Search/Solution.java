@@ -65,7 +65,7 @@ public class Solution {
      *
      * @param answerKey 判断题
      * @param k         可修改的最大数量
-     * @return
+     * @return 最大连续长度
      */
     public int maxConsecutiveAnswers(String answerKey, int k) {
         return Math.max(maxChar(answerKey, k, 'T'), maxChar(answerKey, k, 'F'));
@@ -138,10 +138,11 @@ public class Solution {
 
     /**
      * 438. 找到字符串中所有字母异位词
+     * 剑指 Offer II 015. 字符串中的所有变位词
      *
-     * @param s
-     * @param p
-     * @return
+     * @param s 数据字符串
+     * @param p 查询字符串
+     * @return 异位词
      */
     public List<Integer> findAnagrams(String s, String p) {
         int sLen = s.length(), pLen = p.length();
@@ -153,6 +154,7 @@ public class Solution {
         List<Integer> ans = new ArrayList<>();
         int[] sCount = new int[26];
         int[] pCount = new int[26];
+        //初始化窗口
         for (int i = 0; i < pLen; ++i) {
             ++sCount[s.charAt(i) - 'a'];
             ++pCount[p.charAt(i) - 'a'];
@@ -161,10 +163,10 @@ public class Solution {
         if (Arrays.equals(sCount, pCount)) {
             ans.add(0);
         }
+        //调整窗口并进行判断
         for (int i = 0; i < sLen - pLen; ++i) {
             --sCount[s.charAt(i) - 'a'];
             ++sCount[s.charAt(i + pLen) - 'a'];
-
             if (Arrays.equals(sCount, pCount)) {
                 ans.add(i + 1);
             }
