@@ -61,4 +61,54 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 2024. 考试的最大困扰度
+     *
+     * @param answerKey 判断题
+     * @param k         可修改的最大数量
+     * @return
+     */
+    public int maxConsecutiveAnswers(String answerKey, int k) {
+        return Math.max(maxChar(answerKey, k, 'T'), maxChar(answerKey, k, 'F'));
+    }
+
+
+    public int maxChar(String answerKey, int k, char ch) {
+        int max = 0;
+        int n = answerKey.length();
+        for (int left = 0, right = 0, sum = 0; right < n; right++) {
+            // 不为"T"或者不为"F"的总数
+            sum += answerKey.charAt(right) != ch ? 1 : 0;
+            // 找到刚好符合操作的位置(将left定位到刚好可操作的位置)
+            while (sum > k) {
+                sum -= answerKey.charAt(left++) != ch ? 1 : 0;
+            }
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
+    }
+
+    /**
+     * 1004. 最大连续1的个数 III
+     *
+     * @param nums int 数组
+     * @param k    可操作数
+     * @return 最大连续1的个数
+     */
+    public int longestOnes(int[] nums, int k) {
+        return maxLongest(nums, k, 1);
+    }
+
+    public int maxLongest(int[] nums, int k, int select) {
+        int n = nums.length;
+        int max = 0;
+        for (int i = 0, j = 0, sum = 0; j < n; j++) {
+            sum += nums[j] == select ? 0 : 1;
+            while (sum > k) {
+                sum -= nums[i++] == select ? 0 : 1;
+            }
+            max = Math.max(max, j - i + 1);
+        }
+        return max;
+    }
 }
