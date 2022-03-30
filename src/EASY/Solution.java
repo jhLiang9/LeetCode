@@ -2,10 +2,7 @@ package EASY;
 
 import DataStructures.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
     /**
@@ -138,12 +135,40 @@ public class Solution {
 
     /**
      * 693. 交替位二进制数
+     *
      * @param n 一个正整数
      * @return 给定一个正整数，检查它的二进制表示是否总是 0、1 交替出现：换句话说，就是二进制表示中相邻两位的数字永不相同。
-     *
      */
     public boolean hasAlternatingBits(int n) {
         return (n >> 1 & n) == 0 && (n | n >> 2) == n;
+    }
+
+    /**
+     * 728. 自除数 自除数 是指可以被它包含的每一位数整除的数。
+     *
+     * @param left
+     * @param right
+     * @return
+     */
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> ans = new ArrayList<>();
+        for (int i = left; i <= right; i++) {
+            if (i % 10 == 0) continue;
+            int cur = i;
+            boolean flag = true;
+            while (cur != 0) {
+                int temp = cur % 10;
+                if (temp == 0 || i % temp != 0) {
+                    flag = false;
+                    break;
+                }
+                cur /= 10;
+            }
+            if (flag) {
+                ans.add(i);
+            }
+        }
+        return ans;
     }
 
 
