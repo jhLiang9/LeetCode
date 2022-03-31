@@ -40,6 +40,13 @@ public class Solution {
         return (queue.poll() - 1) * (queue.poll() - 1);
     }
 
+    /**
+     * 1337. 矩阵中战斗力最弱的 K 行
+     *
+     * @param mat 矩阵
+     * @param k   k行
+     * @return 矩阵中战斗力最弱的 K 行
+     */
     public int[] kWeakestRows(int[][] mat, int k) {
         int m = mat.length, n = mat[0].length;
         List<int[]> power = new ArrayList<>();
@@ -77,5 +84,42 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 剑指 Offer II 060. 出现频率最高的 k 个数字
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] ans = new int[k];
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] - o2[1];
+            }
+        });
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (int key : map.keySet()) {
+            queue.add(new int[]{key, map.get(key)});
+        }
+        while (k-- != 0) {
+            ans[count++] = queue.peek()[0];
+            queue.remove(queue.peek());
+        }
+        return ans;
+    }
+
+
+
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        s.topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2);
+    }
 
 }
