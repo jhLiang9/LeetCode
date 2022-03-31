@@ -231,10 +231,10 @@ public class Solution {
     }
 
     public void dfs797(List<List<Integer>> res, int[][] graph, int index, List<Integer> output) {
-        if (index == graph.length-1) {
+        if (index == graph.length - 1) {
             res.add(new ArrayList<>(output));
             return;
-        } else if(index >= graph.length){
+        } else if (index >= graph.length) {
             return;
         }
 
@@ -245,8 +245,38 @@ public class Solution {
         }
     }
 
+    /**
+     * 79. 单词搜索
+     *
+     * @param board m x n 二维字符网格 board
+     * @param word  一个字符串单词 word
+     * @return 如果 word 存在于网格中，返回 true ；否则，返回 false 。
+     */
+    public boolean exist(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                boolean ans = backTrack79(board, word, i, j, 0);
+                if (ans) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean backTrack79(char[][] board, String word, int i, int j, int k) {
+        if (k == word.length()) return true;
+        if (i >= board.length || i < 0 || j >= board[i].length || j < 0) return false;
+        if (board[i][j] == word.charAt(k)) {
+            board[i][j] = '\0';
+            boolean res = backTrack79(board, word, i + 1, j, k + 1) || backTrack79(board, word, i - 1, j, k + 1) || backTrack79(board, word, i, j + 1, k + 1) || backTrack79(board, word, i, j - 1, k + 1);
+            board[i][j] = word.charAt(k);
+            return res;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.allPathsSourceTarget(new int[][]{ {4,3,1},{3,2,4},{3},{4},{}});
+        s.allPathsSourceTarget(new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}});
     }
 }
