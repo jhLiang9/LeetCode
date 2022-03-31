@@ -86,9 +86,10 @@ public class Solution {
 
     /**
      * 剑指 Offer II 060. 出现频率最高的 k 个数字
-     * @param nums
-     * @param k
-     * @return
+     *
+     * @param nums 数字列表
+     * @param k k 个数字
+     * @return 出现频率最高的 k 个数字
      */
     public int[] topKFrequent(int[] nums, int k) {
         int[] ans = new int[k];
@@ -114,7 +115,25 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 451. 根据字符出现频率排序
+     * @param s 字符串s
+     * @return 排序后字符串
+     */
+    public String frequencySort(String s) {
+        StringBuilder ans = new StringBuilder();
+        HashMap<Character, Integer> map = new HashMap<>();
 
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        }
+        List<Character> list = new ArrayList<>(map.keySet());
+        list.sort((a, b) -> map.get(b) - map.get(a));
+        for (char c : list) {
+            ans.append(String.valueOf(c).repeat(Math.max(0, map.get(c))));
+        }
+        return ans.toString();
+    }
 
 
     public static void main(String[] args) {
