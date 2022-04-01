@@ -147,7 +147,28 @@ public class Solution {
                 s.add(key);
             }
         }
-        return s.toArray(new String[s.size()]);
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * 240. 搜索二维矩阵 II
+     *
+     * @param matrix 矩阵
+     * @param target target元素
+     * @return 是否包含target
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        return find(matrix, 0, matrix[0].length - 1, target);
+    }
+
+    public boolean find(int[][] matrix, int i, int j, int target) {
+        if (i >= matrix.length || i < 0 || j < 0 || j > matrix[0].length) return false;
+        if (matrix[i][j] == target) return true;
+        if (matrix[i][j] < target) {
+            return find(matrix, i + 1, j, target);
+        } else {
+            return find(matrix, i, j - 1, target);
+        }
     }
 
 
