@@ -172,4 +172,35 @@ public class Solution {
     }
 
 
+    /**
+     * * 762. 二进制表示中质数个计算置位
+     *
+     * @param left  两个整数 left 和 right
+     * @param right 两个整数 left 和 right
+     * @return 给你两个整数 left 和 right ，在闭区间 [left, right] 范围内，统计并返回 计算置位位数为质数 的整数个数。
+     */
+    public int countPrimeSetBits(int left, int right) {
+        int ans = 0;
+        for (int i = left; i <= right; i++) {
+            int count = Integer.bitCount(i);
+            if (count == 1) {
+                continue;
+            }
+            if (count == 2) {
+                ans++;
+                continue;
+            }
+            boolean flag = true;
+            for (int j = 2; j * j <= count; j++) {
+                if (count % j == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) ans++;
+        }
+        return ans;
+    }
+
+
 }
