@@ -202,5 +202,36 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * #66 加一 加1
+     * @param digits 原数组
+     * @return 结果数组
+     */
+    public int[] plusOne(int[] digits) {
+        int n = digits.length - 1;
+        boolean carry = false;
+        while (n >= 0) {
+            if (digits[n] + 1 == 10) {
+                digits[n] = 0;
+            } else {
+                digits[n] += 1;
+                break;
+            }
+            if (n == 0 && digits[n] == 0) {
+                carry = true;
+            }
+            n--;
+        }
+        if (carry) {
+            int[] ans = new int[digits.length+ 1];
+            ans[0] = 1;
+            for (int i = 0; i < digits.length; i++) {
+                ans[i + 1] = digits[i];
+            }
+            return ans;
+        }
+        return digits;
+    }
+
 
 }
