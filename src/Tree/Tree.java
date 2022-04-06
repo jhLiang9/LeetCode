@@ -387,6 +387,36 @@ public class Tree {
         return res;
     }
 
+    /**
+     * 1302. 层数最深叶子节点的和
+     *
+     * @param root 根节点
+     * @return 最深叶子节点的和
+     */
+    public int deepestLeavesSum(TreeNode root) {
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        int ans = 0;
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            //全部排干净
+            List<TreeNode> list = new ArrayList<>();
+            ans = 0;
+            while (!queue.isEmpty()) {
+                list.add(queue.poll());
+            }
+            for (TreeNode node : list) {
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                ans += node.val;
+            }
+        }
+        return ans;
+    }
+
 
     public static void main(String[] args) {
         Tree tree = new Tree();
