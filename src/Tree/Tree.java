@@ -2,10 +2,7 @@ package Tree;
 
 import DataStructures.TreeNode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Tree {
 
@@ -316,5 +313,84 @@ public class Tree {
     }
 
 
+    /**
+     * 310. 最小高度树
+     *
+     * @param n
+     * @param edges
+     * @return
+     */
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> ans = new ArrayList<>();
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int res = bfs(new boolean[n], i, edges, 1);
+            if (res == min) {
+                ans.add(i);
+            } else if (res < min) {
+                min = res;
+                ans.clear();
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+
+    private int bfs(boolean[] visited, int node, int[][] edges, int depth) {
+        if (visited[node]) return depth;
+        visited[node] = true;
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int[] edge : edges) {
+            if (edge[0] == node && !visited[edge[1]]) {
+                queue.offer(edge[1]);
+//                if (!visited[edge[1]]) return bfs(visited, edge[1], edges, depth + 1);
+            } else if (edge[1] == node && !visited[edge[0]]) {
+                queue.offer(edge[0]);
+//                if (!visited[edge[0]]) return bfs(visited, edge[0], edges, depth + 1);
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        while (!queue.isEmpty()) {
+            res = Math.min(res, bfs(visited, queue.poll(), edges, depth + 1));
+        }
+        return res;
+    }
+
+    /**
+     * 1379. 找出克隆二叉树中的相同节点
+     *
+     * @param original 原始树
+     * @param cloned   克隆树
+     * @param target   目标节点
+     * @return 克隆树对应的目标节点
+     */
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        TreeNode res = null;
+        if (original == target) return cloned;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        Queue<TreeNode> queue1 = new ArrayDeque<>();
+        queue.offer(original);
+        queue1.offer(cloned);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            res = queue1.poll();
+            if (node == target) return res;
+            if (node.left != null) {
+                queue.offer(node.left);
+                queue1.offer(res.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+                queue1.offer(res.right);
+            }
+        }
+        return res;
+    }
+
+
+    public static void main(String[] args) {
+        Tree tree = new Tree();
+        tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
+    }
 }
 
