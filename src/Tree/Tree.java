@@ -1,5 +1,6 @@
 package Tree;
 
+import DataStructures.ListNode;
 import DataStructures.TreeNode;
 
 import java.util.*;
@@ -417,6 +418,44 @@ public class Tree {
         return ans;
     }
 
+    /**
+     * 面试题 04.03. 特定深度节点链表
+     *
+     * @param tree 根节点
+     * @return 节点链表
+     */
+    public ListNode[] listOfDepth(TreeNode tree) {
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        List<ListNode> ans = new ArrayList<>();
+        queue.offer(tree);
+        while (!queue.isEmpty()) {
+            ListNode node = new ListNode(-1);
+            ListNode start = node;
+            List<TreeNode> list = new ArrayList<>();
+            while (!queue.isEmpty()) {
+                TreeNode poll = queue.poll();
+                list.add(poll);
+                node.next = new ListNode(poll.val);
+                node = node.next;
+            }
+            ans.add(start.next);
+
+            for (TreeNode treeNode : list) {
+                if (treeNode.left != null) {
+                    queue.offer(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    queue.offer(treeNode.right);
+                }
+            }
+        }
+        ListNode[] res = new ListNode[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            res[i] = ans.get(i);
+        }
+
+        return res;
+    }
 
     public static void main(String[] args) {
         Tree tree = new Tree();
