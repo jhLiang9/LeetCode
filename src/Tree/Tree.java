@@ -457,6 +457,21 @@ public class Tree {
         return res;
     }
 
+    /**
+     * 111. 二叉树的最小深度
+     *
+     * @param root 根节点
+     * @return 最小深度
+     */
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+        if (root.right != null && root.left == null) return 1 + minDepth(root.right);
+        if (root.right == null) return 1 + minDepth(root.left);
+        return 1 + Math.min(minDepth(root.left), minDepth(root.right));
+    }
+
+
     public static void main(String[] args) {
         Tree tree = new Tree();
         tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
