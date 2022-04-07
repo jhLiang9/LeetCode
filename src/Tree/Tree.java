@@ -499,6 +499,29 @@ public class Tree {
         return ans;
     }
 
+
+    /**
+     * 112. 路径总和
+     *
+     * @param root      根节点
+     * @param targetSum 目标和
+     * @return 是否有目标和
+     */
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) return false;
+        if (root.left == root.right) return root.val == targetSum; //都为null
+        return order112(root.left, root.val, targetSum) || order112(root.right, root.val, targetSum);
+    }
+
+    private boolean order112(TreeNode node, int pre, int targetSum) {
+        if (node == null) return false;
+        if (node.left == null && node.right == null) return (pre + node.val) == targetSum;
+        if (node.left != null && node.right != null)
+            return order112(node.left, pre + node.val, targetSum) || order112(node.right, pre + node.val, targetSum);
+        if (node.left != null) return order112(node.left, pre + node.val, targetSum);
+        return order112(node.right, pre + node.val, targetSum);
+    }
+
     public static void main(String[] args) {
         Tree tree = new Tree();
         tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
