@@ -1,6 +1,7 @@
 package Tree;
 
 import DataStructures.ListNode;
+import DataStructures.Node;
 import DataStructures.TreeNode;
 
 import java.util.*;
@@ -520,6 +521,33 @@ public class Tree {
             return order112(node.left, pre + node.val, targetSum) || order112(node.right, pre + node.val, targetSum);
         if (node.left != null) return order112(node.left, pre + node.val, targetSum);
         return order112(node.right, pre + node.val, targetSum);
+    }
+
+    /**
+     * 429. N 叉树的层序遍历
+     *
+     * @param root 根节点
+     * @return 层序遍历
+     */
+    public List<List<Integer>> levelOrder(Node root) {
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        if (root == null) return ans;
+        LinkedList<Node> deque = new LinkedList<>();
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            LinkedList<Integer> temp = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                Node node = deque.poll();
+                temp.add(node.val);
+                if (node.children.isEmpty()) continue;
+                for (Node child : node.children) {
+                    deque.offer(child);
+                }
+            }
+            ans.add(temp);
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
