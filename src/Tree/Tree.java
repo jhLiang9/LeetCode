@@ -295,7 +295,7 @@ public class Tree {
      * 110. 平衡二叉树
      *
      * @param root 根节点
-     * @return
+     * @return 是否平衡二叉树
      */
     public boolean isBalanced(TreeNode root) {
         if (root == null) {
@@ -318,7 +318,7 @@ public class Tree {
      * 310. 最小高度树
      *
      * @param n
-     * @param edges
+     * @param edges 边
      * @return
      */
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
@@ -471,6 +471,31 @@ public class Tree {
         return 1 + Math.min(minDepth(root.left), minDepth(root.right));
     }
 
+    /**
+     * 107. 二叉树的层序遍历 II
+     *
+     * @param root 根节点
+     * @return 字底向上的层序遍历
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        if (root == null) return ans;
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int count = deque.size();
+            for (int i = 0; i < count; i++) {
+                TreeNode node = deque.poll();
+                if (node == null) continue;
+                list.add(node.val);
+                if (node.left != null) deque.offer(node.left);
+                if (node.right != null) deque.offer(node.right);
+            }
+            ans.push(list);
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         Tree tree = new Tree();
