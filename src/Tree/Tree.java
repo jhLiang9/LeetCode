@@ -376,13 +376,15 @@ public class Tree {
             TreeNode node = queue.poll();
             res = queue1.poll();
             if (node == target) return res;
-            if (node.left != null) {
-                queue.offer(node.left);
-                queue1.offer(res.left);
-            }
-            if (node.right != null) {
-                queue.offer(node.right);
-                queue1.offer(res.right);
+            if (res != null) {
+                if (node.left != null) {
+                    queue.offer(node.left);
+                    queue1.offer(res.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                    queue1.offer(res.right);
+                }
             }
         }
         return res;
