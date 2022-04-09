@@ -550,6 +550,32 @@ public class Tree {
         return ans;
     }
 
+    /**
+     * 637. 二叉树的层平均值
+     *
+     * @param root 根节点
+     * @return 层平均值
+     */
+    public List<Double> averageOfLevels(TreeNode root) {
+        LinkedList<Double> ans = new LinkedList<>();
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        if (root == null) return ans;
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            double sum = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = deque.poll();
+                sum += node.val;
+                if (node.left != null) deque.offer(node.left);
+                if (node.right != null) deque.offer(node.right);
+            }
+            ans.add(sum / size);
+        }
+        return ans;
+    }
+
+
     public static void main(String[] args) {
         Tree tree = new Tree();
         tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
