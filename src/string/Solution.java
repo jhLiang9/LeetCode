@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Solution {
     /**
-     *  720. 词典中最长的单词
+     * 720. 词典中最长的单词
      * https://leetcode-cn.com/problems/longest-word-in-dictionary/
      * 给出一个字符串数组words 组成的一本英语词典。返回words 中最长的一个单词，该单词是由words词典中其他单词逐步添加一个字母组成。
-     *
+     * <p>
      * 若其中有多个可行的答案，则返回答案中字典序最小的单词。若无答案，则返回空字符串。
      *
      * @param words 字符串
@@ -50,6 +50,25 @@ public class Solution {
             }
         }
         return result;
+    }
+
+    /**
+     * 804. 唯一摩尔斯密码词
+     *
+     * @param words 字符串数组
+     * @return 对 words 中所有单词进行单词翻译，返回不同 单词翻译 的数量。
+     */
+    public int uniqueMorseRepresentations(String[] words) {
+        HashSet<String> set = new HashSet<>();
+        String[] codes = new String[]{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+        for (String word : words) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < word.length(); i++) {
+                sb.append(codes[word.charAt(i) - 'a']);
+            }
+            set.add(sb.toString());
+        }
+        return set.size();
     }
 
     public static void main(String[] args) {
