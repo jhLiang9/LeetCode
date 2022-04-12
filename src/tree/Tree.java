@@ -575,10 +575,60 @@ public class Tree {
         return ans;
     }
 
+    /**
+     * 96. 不同的二叉搜索树
+     *
+     * @param n
+     * @return
+     */
+    public int numTrees(int n) {
+        int ans = 0;
+        ArrayList<TreeNode> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            //i作为头
+            TreeNode root = new TreeNode(i + 1);
+            boolean[] visited = new boolean[n];
+            visited[i] = true;
+            treesCount(root, root, n, 1, list, visited);
+        }
+        for (TreeNode node : list) {
+            System.out.println(node.val);
+        }
+        return ans;
+    }
+
+    public void treesCount(TreeNode root, TreeNode node, int n, int cur, List<TreeNode> list, boolean[] visited) {
+        if (cur == n) {
+            list.add(root);
+            return;
+        }
+        for (int i = 0; i < visited.length; i++) {
+            if (!visited[i]) {
+                //没访问过的
+                if (i + 1 < node.val) {
+                    //左节点
+                    visited[i] = true;
+                    node.left = new TreeNode(i + 1);
+                    treesCount(root, node.left, n, cur + 1, list, visited);
+                    visited[i] = false;
+                }
+                if (i + 1 > node.val) {
+                    //右节点
+                    visited[i] = true;
+                    node.right = new TreeNode(i + 1);
+                    treesCount(root, node.right, n, cur + 1, list, visited);
+                    visited[i] = false;
+                }
+            }
+        }
+
+    }
+
 
     public static void main(String[] args) {
         Tree tree = new Tree();
         tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
+        tree.numTrees(4);
     }
 }
 
