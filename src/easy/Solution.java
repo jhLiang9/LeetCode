@@ -226,9 +226,7 @@ public class Solution {
         if (carry) {
             int[] ans = new int[digits.length + 1];
             ans[0] = 1;
-            for (int i = 0; i < digits.length; i++) {
-                ans[i + 1] = digits[i];
-            }
+            System.arraycopy(digits, 0, ans, 1, digits.length);
             return ans;
         }
         return digits;
