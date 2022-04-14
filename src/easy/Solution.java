@@ -234,5 +234,22 @@ public class Solution {
         return digits;
     }
 
+    /**
+     * 1672. 最富有客户的资产总量
+     *
+     * @param accounts 账户数
+     * @return 最大值
+     */
+    public int maximumWealth(int[][] accounts) {
+        int max = -1;
+        for (int[] account : accounts) {
+            int sum = 0;
+            for (int i : account) {
+                sum += i;
+            }
+            if (sum > max) max = sum;
+        }
+        return max;
+    }
 
 }
