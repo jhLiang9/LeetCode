@@ -92,10 +92,12 @@ public class Solution {
                         stack.pop();
                         break;
                     case "D":
+                        if (stack.peek() == null) break;
                         stack.push(stack.peek() * 2);
                         break;
                     case "+":
                         int top = stack.pop();
+                        if (stack.peek() == null) break;
                         int pushIn = top + stack.peek();
                         stack.push(top);
                         stack.push(pushIn);
@@ -146,9 +148,9 @@ public class Solution {
     /**
      * 728. 自除数 自除数 是指可以被它包含的每一位数整除的数。
      *
-     * @param left
-     * @param right
-     * @return
+     * @param left  起始
+     * @param right 终点
+     * @return 自除数个数
      */
     public List<Integer> selfDividingNumbers(int left, int right) {
         List<Integer> ans = new ArrayList<>();
@@ -249,5 +251,7 @@ public class Solution {
         }
         return max;
     }
+
+
 
 }
