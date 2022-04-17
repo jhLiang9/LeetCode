@@ -252,6 +252,37 @@ public class Solution {
         return max;
     }
 
+    /**
+     * 819. 最常见的单词
+     *
+     * @param paragraph 段落
+     * @param banned    禁用
+     * @return 最常见的单词
+     */
+    public String mostCommonWord(String paragraph, String[] banned) {
+        paragraph = paragraph.toLowerCase();
+        String[] split = paragraph.split("[ ,.!?:;']");
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String word : split) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+        for (String ban : banned) {
+            map.remove(ban);
+        }
+        int max = -1;
+        String ans = "";
+        for (String key : map.keySet()) {
+            if (map.get(key) > max && !key.equals("")) {
+                ans = key;
+                max = map.get(key);
+            }
+        }
+        return ans;
+    }
 
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
+    }
 
 }
