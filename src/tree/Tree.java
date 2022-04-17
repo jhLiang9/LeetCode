@@ -579,7 +579,7 @@ public class Tree {
      * 96. 不同的二叉搜索树
      *
      * @param n
-     * @return
+     * @return 不同二叉树的棵树
      */
     public int numTrees(int n) {
         int ans = 0;
@@ -622,6 +622,28 @@ public class Tree {
             }
         }
 
+    }
+
+    /**
+     * 386. 字典序排数
+     * @param n 按字典序返回范围 [1, n] 内所有整数
+     * @return 按字典序返回范围 [1, n] 内所有整数。
+     */
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> ans = new ArrayList<>();
+        int num = 1;
+        for (int i = 0; i < n; i++) {
+            ans.add(num);
+            if (num * 10 < n) {
+                num *= 10;
+            } else {
+                while (num % 10 == 9 || num + 1 > n) {
+                    num /= 10;
+                }
+                num++;
+            }
+        }
+        return ans;
     }
 
 
