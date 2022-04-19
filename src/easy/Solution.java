@@ -280,6 +280,34 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 821. 字符的最短距离
+     *
+     * @param s 字符串
+     * @param c 目标字符
+     * @return 最短距离
+     * 思路:使用两次遍历
+     */
+    public int[] shortestToChar(String s, char c) {
+        int n = s.length();
+        int[] ans = new int[n];
+
+        for (int i = 0, idx = -n; i < n; ++i) {
+            if (s.charAt(i) == c) {
+                idx = i;
+            }
+            ans[i] = i - idx;
+        }
+
+        for (int i = n - 1, idx = 2 * n; i >= 0; --i) {
+            if (s.charAt(i) == c) {
+                idx = i;
+            }
+            ans[i] = Math.min(ans[i], idx - i);
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
         s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
