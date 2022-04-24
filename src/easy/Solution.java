@@ -308,6 +308,38 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 868. 二进制间距
+     *
+     * @param n 正整数n
+     * @return 二进制最长间距
+     */
+    public int binaryGap(int n) {
+        int ans = 0;
+        int prev = -1;
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            sb.append(n & 1);
+            n = n >> 1;
+        }
+        int a = Integer.bitCount(n);
+        //String s = String.valueOf(a);
+        String s = sb.toString();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (prev == -1) {
+                prev = i;
+                continue;
+            }
+            if (c == '1') {
+                ans = Math.max(ans, i - prev);
+                prev = i;
+            }
+        }
+        return ans;
+    }
+
+
     public static void main(String[] args) {
         Solution s = new Solution();
         s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
