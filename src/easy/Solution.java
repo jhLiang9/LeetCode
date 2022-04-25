@@ -339,6 +339,34 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 883. 三维形体投影面积
+     *
+     * @param grid 矩阵
+     * @return 投影面积
+     */
+    public int projectionArea(int[][] grid) {
+        int n = grid.length;
+        int res = 0;
+        int[] maxX = new int[n];
+        int[] maxY = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] > 0) res++;
+                maxX[i] = Math.max(grid[i][j], maxX[i]);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                maxY[i] = Math.max(grid[j][i], maxY[i]);
+            }
+        }
+
+        res += Arrays.stream(maxX).sum();
+        res += Arrays.stream(maxY).sum();
+
+        return res;
+    }
 
     public static void main(String[] args) {
         Solution s = new Solution();
