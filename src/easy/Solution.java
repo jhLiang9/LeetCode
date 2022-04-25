@@ -317,27 +317,18 @@ public class Solution {
     public int binaryGap(int n) {
         int ans = 0;
         int prev = -1;
-        StringBuilder sb = new StringBuilder();
-        while (n > 0) {
-            sb.append(n & 1);
-            n = n >> 1;
-        }
-        int a = Integer.bitCount(n);
-        //String s = String.valueOf(a);
-        String s = sb.toString();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (prev == -1) {
-                prev = i;
-                continue;
-            }
-            if (c == '1') {
-                ans = Math.max(ans, i - prev);
+        for (int i = 0; n != 0; ++i) {
+            if ((n & 1) == 1) {
+                if (prev != -1) {
+                    ans = Math.max(ans, i - prev);
+                }
                 prev = i;
             }
+            n >>= 1;
         }
         return ans;
     }
+
 
     /**
      * 883. 三维形体投影面积
