@@ -359,6 +359,27 @@ public class Solution {
         return res;
     }
 
+    /**
+     * 908. 最小差值 I
+     *
+     * @param nums 数组
+     * @param k    可操作性范围
+     * @return
+     */
+    public int smallestRangeI(int[] nums, int k) {
+        int min = nums[0];
+        int max = nums[0];
+        for (int num : nums) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max - min <= 2 * k ? 0 : (max - min) - 2 * k;
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
         s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
