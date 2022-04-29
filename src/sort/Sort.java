@@ -4,6 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sort {
+    // 选择排序 O(N^2/2)
+    public int[] selectSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            //找到最小的
+            int min = i;
+            for (int j = i; j < nums.length; j++) {
+                if (nums[j] < nums[min]) {
+                    min = j;
+                }
+            }
+            int temp = nums[i];
+            nums[i] = nums[min];
+            nums[min] = temp;
+        }
+        return nums;
+    }
+
+
     public int[] quickSort(int[] nums) {
         //todo
         return nums;
