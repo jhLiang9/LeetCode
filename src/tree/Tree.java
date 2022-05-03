@@ -578,7 +578,7 @@ public class Tree {
     /**
      * 96. 不同的二叉搜索树
      *
-     * @param n
+     * @param n 节点个数
      * @return 不同二叉树的棵树
      */
     public int numTrees(int n) {
@@ -626,6 +626,7 @@ public class Tree {
 
     /**
      * 386. 字典序排数
+     *
      * @param n 按字典序返回范围 [1, n] 内所有整数
      * @return 按字典序返回范围 [1, n] 内所有整数。
      */
@@ -646,6 +647,46 @@ public class Tree {
         return ans;
     }
 
+    /**
+     * 1305. 两棵二叉搜索树中的所有元素
+     *
+     * @param root1 二叉树1
+     * @param root2 二叉树1
+     * @return 排序后的所有元素
+     */
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        List<Integer> t1 = new ArrayList<>();
+        List<Integer> t2 = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        order(root1, t1);
+        order(root2, t2);
+        int i = 0, j = 0;
+        while (i != t1.size() && j != t2.size()) {
+            if (t1.get(i) <= t2.get(j)) {
+                res.add(t1.get(i++));
+            } else {
+                res.add(t2.get(j++));
+            }
+        }
+
+        if (i == t1.size()) {
+            while (j != t2.size()) {
+                res.add(t2.get(j++));
+            }
+        }
+
+        while (i != t1.size()) {
+            res.add(t1.get(i++));
+        }
+        return res;
+    }
+
+    public void order(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+        order(root.left, list);
+        list.add(root.val);
+        order(root.right, list);
+    }
 
     public static void main(String[] args) {
         Tree tree = new Tree();
