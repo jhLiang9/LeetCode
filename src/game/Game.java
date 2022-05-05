@@ -1,5 +1,8 @@
 package game;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Game {
 
     /**
@@ -28,4 +31,16 @@ public class Game {
         }
         return resultA > resultB;
     }
+
+
+    public int findTheWinner(int n, int k) {
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i < n; i++) queue.add(i);
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < k; j++) queue.add(queue.poll());
+            queue.poll();
+        }
+        return queue.poll();
+    }
+
 }
