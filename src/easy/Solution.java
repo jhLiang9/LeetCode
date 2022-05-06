@@ -420,6 +420,15 @@ public class Solution {
         return isDigit1 ? 1 : -1;
     }
 
+    public static class Pair {
+        String log;
+        int index;
+
+        public Pair(String log, int index) {
+            this.log = log;
+            this.index = index;
+        }
+    }
 
     public static void main(String[] args) {
         Solution s = new Solution();
@@ -428,11 +437,3 @@ public class Solution {
 
 }
 
-public static class Pair {
-    String log;
-    int index;
-
-    public Pair(String log, int index) {
-        this.log = log;
-        this.index = index;
-    }
