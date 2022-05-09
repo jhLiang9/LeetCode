@@ -430,6 +430,32 @@ public class Solution {
         }
     }
 
+    /**
+     * 942. 增减字符串匹配
+     *
+     * @param s 字符串s
+     * @return 重排
+     */
+    public int[] diStringMatch(String s) {
+        int n = s.length();
+        int[] res = new int[n + 1];
+        int index = 0;
+        int min = 0;
+        int max = n;
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == 'D') {
+                res[index++] = max;
+                max -= 1;
+            } else if (s.charAt(i) == 'I') {
+                res[index++] = min;
+                min += 1;
+            }
+        }
+        res[index] = (min + max) / 2;
+        return res;
+    }
+
+
     public static void main(String[] args) {
         Solution s = new Solution();
         s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
