@@ -477,9 +477,42 @@ public class Solution {
         return ans;
     }
 
+
+    /**
+     * 953. 验证外星语词典
+     * link:<a href="https://leetcode.cn/problems/verifying-an-alien-dictionary/">https://leetcode.cn/problems/verifying-an-alien-dictionary/</a>
+     * @param words 单词列表
+     * @param order 字母顺序
+     * @return 是否外星语
+     */
+    public boolean isAlienSorted(String[] words, String order) {
+        int[] index = new int[26];
+        for (int i = 0; i < order.length(); ++i) {
+            index[order.charAt(i) - 'a'] = i;
+        }
+        for (int i = 1; i < words.length; i++) {
+            boolean valid = false;
+            for (int j = 0; j < words[i - 1].length() && j < words[i].length(); j++) {
+                int prev = index[words[i - 1].charAt(j) - 'a'];
+                int curr = index[words[i].charAt(j) - 'a'];
+                if (prev < curr) {
+                    valid = true;
+                    break;
+                } else if (prev > curr) {
+                    return false;
+                }
+            }
+            if (!valid && words[i - 1].length() > words[i].length()) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.mostCommonWord("Bob, hit,ball", new String[]{"bob", "hit"});
+        s.isAlienSorted(new String[]{"hello", "leetcode"}, "hlabcdefgijkmnopqrstuvwxyz");
     }
 
 }
