@@ -5,6 +5,13 @@ import java.util.List;
 
 public class Sort {
     // 选择排序 O(N^2/2)
+
+    /**
+     * 选择排序，O(N^2/2)，每次都选择数组中最小的元素。将它和数组第一个元素交换位置。如此反复。
+     *
+     * @param nums 数组
+     * @return
+     */
     public int[] selectSort(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
             //找到最小的
@@ -21,6 +28,20 @@ public class Sort {
         return nums;
     }
 
+    /**
+     * 插入排序，选择当前，插入到前面
+     *
+     * @param nums 数组
+     * @return 排序结果
+     */
+    public int[] insertSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j > 0 && nums[j] < nums[j - 1]; j--) {
+                swap(nums, j - 1, j);
+            }
+        }
+        return nums;
+    }
 
     public int[] quickSort(int[] nums) {
         //todo
@@ -51,6 +72,12 @@ public class Sort {
             arr[i] = arr[n - i - 1];
             arr[n - i - 1] = temp;
         }
+    }
+
+    public void swap(int[] nums, int indexX, int indexY) {
+        int temp = nums[indexX];
+        nums[indexX] = nums[indexY];
+        nums[indexY] = temp;
     }
 
 
