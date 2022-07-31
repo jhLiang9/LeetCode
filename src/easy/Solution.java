@@ -1,6 +1,6 @@
 package easy;
 
-import DataStructures.TreeNode;
+import dataStructures.TreeNode;
 
 import java.util.*;
 

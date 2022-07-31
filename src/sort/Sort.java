@@ -40,7 +40,7 @@ public class Sort {
                 swap(nums, j - 1, j);
             }
         }
-        return nums;
+        return nums;    
     }
 
     public int[] quickSort(int[] nums) {

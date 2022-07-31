@@ -1,8 +1,8 @@
 package tree;
 
-import DataStructures.ListNode;
-import DataStructures.Node;
-import DataStructures.TreeNode;
+import dataStructures.ListNode;
+import dataStructures.Node;
+import dataStructures.TreeNode;
 
 import java.util.*;
 
@@ -687,6 +687,37 @@ public class Tree {
         list.add(root.val);
         order(root.right, list);
     }
+
+    public int maxLevelSum(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        int res = 0;
+        int max = Integer.MIN_VALUE;
+        int level = 0;
+        while (true) {
+            Deque<TreeNode> tempQueue = new ArrayDeque<>();
+            int count = 0;
+            level++;
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.pollLast();
+                if (node != null) {
+                    count += node.val;
+                    if (node.left != null) tempQueue.offer(node.left);
+                    if (node.right != null) tempQueue.offer(node.right);
+                }
+            }
+            if (count > max) {
+                max = count;
+                res = level;
+            }
+            queue.addAll(tempQueue);
+            if (queue.isEmpty()) break;
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         Tree tree = new Tree();

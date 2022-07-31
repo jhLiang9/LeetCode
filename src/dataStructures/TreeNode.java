@@ -1,4 +1,4 @@
-package DataStructures;
+package dataStructures;
 
 /**
  * Definition for a binary tree node.

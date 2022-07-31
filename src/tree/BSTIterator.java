@@ -1,6 +1,6 @@
 package tree;
 
-import DataStructures.TreeNode;
+import dataStructures.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
