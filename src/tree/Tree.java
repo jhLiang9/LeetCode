@@ -719,9 +719,10 @@ public class Tree {
     }
 
     /**
-     *  199. 二叉树的右视图
-     *  desc: 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
-     *  思路: 核心是层序遍历，每层用List记录， 到达层的最后一位时，保存。
+     * 199. 二叉树的右视图
+     * desc: 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+     * 思路: 核心是层序遍历，每层用List记录， 到达层的最后一位时，保存。
+     *
      * @param root 根节点
      * @return 右侧看到的结点值
      */
@@ -743,6 +744,32 @@ public class Tree {
         }
         return res;
     }
+
+    /**
+     * 129. 求根节点到叶节点数字之和
+     * desc : 计算从根节点到叶节点生成的 所有数字之和 。
+     *
+     * @param root 根节点
+     * @return 宿友数字之和
+     */
+    public int sumNumbers(TreeNode root) {
+        if (root == null) return 0;
+        return rec(root, 0);
+    }
+
+    /**
+     * 129 用的函数
+     * @param node node 树节点
+     * @param prevSum 之前的总和
+     * @return 当前节点的总和
+     */
+    public int rec(TreeNode node, int prevSum) {
+        if (node == null) return 0;
+        prevSum = prevSum * 10 + node.val;
+        if (node.left == null && node.right == null) return prevSum;
+        return rec(node.left, prevSum) + rec(node.right, prevSum);
+    }
+
     public static void main(String[] args) {
         Tree tree = new Tree();
         TreeNode root = new TreeNode(1);
