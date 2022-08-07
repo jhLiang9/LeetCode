@@ -718,11 +718,39 @@ public class Tree {
         return res;
     }
 
-
+    /**
+     *  199. 二叉树的右视图
+     *  desc: 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+     *  思路: 核心是层序遍历，每层用List记录， 到达层的最后一位时，保存。
+     * @param root 根节点
+     * @return 右侧看到的结点值
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        ArrayDeque<TreeNode> deque = new ArrayDeque<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            List<TreeNode> list = new ArrayList<>();
+            int count = deque.size();
+            for (int i = 0; i < count; i++) {
+                TreeNode node = deque.pollFirst();
+                if (node.left != null) list.add(node.left);
+                if (node.right != null) list.add(node.right);
+                if (deque.isEmpty()) res.add(node.val);
+            }
+            deque.addAll(list);
+        }
+        return res;
+    }
     public static void main(String[] args) {
         Tree tree = new Tree();
-        tree.findMinHeightTrees(6, new int[][]{{3, 0}, {3, 1}, {3, 2}, {5, 4}, {3, 4}});
-        tree.numTrees(4);
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.right = new TreeNode(5);
+        root.right.right = new TreeNode(4);
+        tree.rightSideView(root);
     }
 }
 
