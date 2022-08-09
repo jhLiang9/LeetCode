@@ -40,12 +40,29 @@ public class Sort {
                 swap(nums, j - 1, j);
             }
         }
-        return nums;    
+        return nums;
     }
 
-    public int[] quickSort(int[] nums) {
-        //todo
-        return nums;
+    public void quickSort(int[] nums, int lo, int hi) {
+        if (lo >= hi) return;
+        int j = partition(nums, lo, hi);
+        quickSort(nums, lo, j);
+        quickSort(nums, j + 1, hi);
+    }
+
+    private int partition(int[] nums, int lo, int hi) {
+
+        int i = lo, j = hi + 1;
+        int v = nums[lo]; // 切分元素
+        while (true) {
+            while (less(nums[i++], v)) if (i == hi) break; // 切分元素的 右边
+            while (less(v, nums[--j])) if (j == lo) break; // 切分元素的 左边
+            if (i >= j) break;
+            exch(nums, i, j);
+        }
+        exch(nums, lo, j);
+        // j就是当前切分的位置
+        return j;
     }
 
     public List<Integer> pancakeSort(int[] arr) {
@@ -74,11 +91,24 @@ public class Sort {
         }
     }
 
-    public void swap(int[] nums, int indexX, int indexY) {
-        int temp = nums[indexX];
-        nums[indexX] = nums[indexY];
-        nums[indexY] = temp;
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 
+    private void exch(int[] nums, int i, int j) {
+        swap(nums, i, j);
+    }
 
+    private boolean less(int i, int j) {
+        return i < j;
+    }
+
+    public static void main(String[] args) {
+        Sort sort = new Sort();
+        int[] nums = new int[]{1, 5, 6, 3, 2, 4};
+        sort.quickSort(nums, 0, nums.length - 1);
+        for (int num : nums) System.out.println(num);
+    }
 }

@@ -759,7 +759,8 @@ public class Tree {
 
     /**
      * 129 用的函数
-     * @param node node 树节点
+     *
+     * @param node    node 树节点
      * @param prevSum 之前的总和
      * @return 当前节点的总和
      */
@@ -770,14 +771,49 @@ public class Tree {
         return rec(node.left, prevSum) + rec(node.right, prevSum);
     }
 
+    /**
+     * 654. 最大二叉树
+     * desc: https://leetcode.cn/problems/maximum-binary-tree/
+     *
+     * @param nums 给定一个不重复的整数数组 nums
+     * @return 最大二叉树
+     */
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        if (nums == null || nums.length == 0) return null;
+        int max = -1;
+        int maxIndex = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > max) {
+                max = nums[i];
+                maxIndex = i;
+            }
+        }
+        TreeNode node = new TreeNode(max);
+        int[] leftNums = new int[maxIndex];
+        int[] rightNums = new int[nums.length - maxIndex - 1];
+        System.arraycopy(nums, 0, leftNums, 0, leftNums.length);
+        System.arraycopy(nums, maxIndex + 1, rightNums, 0, rightNums.length);
+        //递归 求得当前节点的左节点和右节点
+        node.left = constructMaximumBinaryTree(leftNums);
+        node.right = constructMaximumBinaryTree(rightNums);
+        return node;
+    }
+
+
     public static void main(String[] args) {
+        int[] nums = new int[]{1, 2};
+
         Tree tree = new Tree();
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.right = new TreeNode(5);
-        root.right.right = new TreeNode(4);
-        tree.rightSideView(root);
+        TreeNode root = new TreeNode(10);
+        root.left = new TreeNode(5);
+        root.right = new TreeNode(-3);
+        root.left.right = new TreeNode(2);
+        root.left.right.right = new TreeNode(1);
+        root.left.left = new TreeNode(3);
+        root.left.left.left = new TreeNode(3);
+        root.left.left.right = new TreeNode(-2);
+        root.right.right = new TreeNode(11);
+
     }
 }
 
