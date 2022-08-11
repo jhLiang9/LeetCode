@@ -481,6 +481,7 @@ public class Solution {
     /**
      * 953. 验证外星语词典
      * link:<a href="https://leetcode.cn/problems/verifying-an-alien-dictionary/">https://leetcode.cn/problems/verifying-an-alien-dictionary/</a>
+     *
      * @param words 单词列表
      * @param order 字母顺序
      * @return 是否外星语
@@ -510,9 +511,40 @@ public class Solution {
         return true;
     }
 
+    /**
+     * 1282. 用户分组
+     *
+     * @param groupSizes 用户需求的人数
+     * @return
+     */
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {
+        List<List<Integer>> res = new ArrayList<>();
+        HashMap<Integer, List<Integer>> hashMap = new HashMap<>();
+        for (int i = 0; i < groupSizes.length; i++) {
+            if (hashMap.get(groupSizes[i]) == null) {
+                hashMap.put(groupSizes[i], new ArrayList<>());
+            }
+            hashMap.get(groupSizes[i]).add(i);
+        }
+        for (int key : hashMap.keySet()) {
+            List<Integer> list = hashMap.get(key);
+            List<Integer> temp = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                temp.add(list.get(i));
+                if ((i + 1) % key == 0) {
+                    res.add(new ArrayList<>(temp));
+                    temp.clear();
+                }
+            }
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.isAlienSorted(new String[]{"hello", "leetcode"}, "hlabcdefgijkmnopqrstuvwxyz");
+        s.groupThePeople(new int[]{3, 3, 3, 3, 3, 1, 3});
+        s.isAlienSorted(new String[]{"hello", "leetCode"}, "hlabcdefgijkmnopqrstuvwxyz");
     }
 
 }

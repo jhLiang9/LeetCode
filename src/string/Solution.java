@@ -109,6 +109,7 @@ public class Solution {
      * @return
      */
     public String solveEquation(String equation) {
+        //factor 参数, val 其余值
         int factor = 0, val = 0;
         int index = 0, n = equation.length(), sign1 = 1; // 等式左边默认系数为正
         while (index < n) {
@@ -137,7 +138,7 @@ public class Solution {
                 val += sign2 * number;
             }
         }
-
+        StringBuilder s = new StringBuilder();
         if (factor == 0) {
             return val == 0 ? "Infinite solutions" : "No solution";
         }

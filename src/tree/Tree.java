@@ -799,6 +799,28 @@ public class Tree {
         return node;
     }
 
+    /**
+     * 113. 路径总和 II
+     * @param root 根节点
+     * @param targetSum 目标数
+     * @return 根节点到目标的路径
+     */
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> res = new ArrayList<>();
+        fun(res, new LinkedList<>(), root, targetSum);
+        return res;
+    }
+    //113
+    public void fun(List<List<Integer>> res, LinkedList<Integer> deque,TreeNode node, int currentSum) {
+        if(node == null) return;
+        // 回溯 递归
+        deque.offer(node.val);
+        if(node.left == null && node.right == null && currentSum - node.val ==0) res.add(new LinkedList<>(deque));
+        fun(res, deque, node.left, currentSum - node.val);
+        fun(res, deque, node.right, currentSum - node.val);
+        deque.pollLast();
+    }
+
 
     public static void main(String[] args) {
         int[] nums = new int[]{1, 2};
